@@ -26,6 +26,8 @@ public class serviceJdbc {
                     "where IsDelete = 0 and retailgroup = '孩子王' and DateType = 'day'";
             re=st.executeQuery(sql);
             while (re.next()){
+                System.out.println(
+                );
                 System.out.println(re.getString("RetailGroup") +";"+re.getString("ProductCode") );
             }
         }catch (Exception e){
