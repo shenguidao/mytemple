@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- maven 父子关系  
+    父项目中打包方式必须是pom  如 <packaging>pom</packaging>，
+    父项目中使用<modules><module>msite-base</module></modules>指定子项目
+    子项目中使用 <parent>指定，子项目继承父项目的大部分属性
+    原文：https://blog.csdn.net/u013378306/article/details/50805529
+     -->
+    <groupId>cn.dz</groupId>
+    <artifactId>mytemple</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <!--在idea中创建子程序后,会自动生成-->
+    <modules>
+        <module>soontemple-1</module>
+        <module>soontemple-2</module>
+    </modules>
+    <!-- 版本号统一管理,取值方式${jdk.version}-->
+    <properties>
+        <!--dependency version-->
+        <!-- <java.version>1.7</java.version> -->
+        <jdk.version>1.7</jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mybatis.spring.version>1.2.4</mybatis.spring.version>
+        <mysql-connector>5.1.39</mysql-connector>
+
+        <!--plugin version-->
+    </properties>
+
+
+    <!-- spring启动方式一:导入starter-parent和starter-web,自动整合各种依赖 -->
+    <!--<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.4.RELEASE</version>
+    </parent>
+    &lt;!&ndash;  &ndash;&gt;
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.0.6.RELEASE</version>
+        </dependency>
+    </dependencies>-->
+
+    <!-- 有dependencyManagement,在子项目dependency中才能不规定version来继承父项目的-->
+    <!-- 只是对版本号进行管理声明，不会实际引入jar,如果没有这个,就会实际加载jar -->
+    <dependencyManagement>
+        <dependencies>
+           <!-- spring启动方式二:如果所有版本需要自己来配置,使用这个启动springboot,添加所有版本-->
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.0.6.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--Apache Commons包含了很多开源的工具，用于解决平时编程经常会遇到的问题，减少重复劳动�???? -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.5</version>
+            </dependency>
+
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>2.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>2.7.0</version>
+            </dependency>
+
+            <!-- net json 解析 -->
+            <dependency>
+                <groupId>net.sf.json-lib</groupId>
+                <artifactId>json-lib</artifactId>
+                <version>2.4</version>
+                <classifier>jdk15</classifier>
+            </dependency>
+
+            <!-- 数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.0.11</version>
+            </dependency>
+
+            <!-- MySQL 连接驱动依赖 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector}</version>
+            </dependency>
+
+            <!-- fastJson工具 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.38</version>
+            </dependency>
+
+            <!--mybatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
+            <!-- MP 核心�???? -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>2.0.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.18</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+    <build>
+        <finalName>kgt-boot</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encode>UTF-8</encode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,25 @@
+server:
+  port: 8089
+spring:
+  profiles:
+    active: dev
+  thymeleaf: #thymeleaf
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template-location: true
+    mode: HTML5
+    servlet:
+      content-type: text/html
+    cache: false
+    encoding: UTF-8
+  security: #swgger登录账号密码
+    user:
+      name: 123
+      password: 123
+    basic:
+      enabled: true
+      path: /swagger-ui.html
+# mybatis 配置
+mybatis:
+  type-aliases-package: cn.dz.daima.entity  #实体类
+  mapper-locations: classpath:cn.dz.daima.mapper/*Mapper.xml  #mapper映射
